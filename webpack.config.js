@@ -1,9 +1,16 @@
 'use strict';
-
+var argv = require('yargs').argv;
 var path = require('path');
 var webpack = require('webpack');
+var gulpMux = require('gulp-mux');
 var CommonsChunkPlugin = webpack.optimize.CommonsChunkPlugin;
 var CopyWebpackPlugin = require('copy-webpack-plugin');
+
+var target = process.env.TARGET || 'app';
+var clientFolder = 'client';
+var distFolder = 'dist';
+var suffix = gulpMux.targets.targetToSuffix(target);
+
 module.exports = {
     devtool: 'source-map',
     debug: true,
@@ -16,18 +23,18 @@ module.exports = {
             'angular2/router',
             'angular2/http'
         ],
-        'bundle': './client/scripts/app/bootstrap.ts'
+        'bundle': './' + clientFolder + '/scripts/' + target + '/bootstrap.ts'
     },
 
     output: {
-        path: __dirname + '/dist/',
-        publicPath: 'dist/',
+        path: __dirname + '/' + distFolder + '/',
+        publicPath: distFolder + '/',
         filename: '[name].js',
         sourceMapFilename: '[name].js.map',
         chunkFilename: '[id].chunk.js',
         devtoolModuleFilenameTemplate: function(info) {
             //return 'scripts/app' + info.resourcePath.replace(__dirname, '../..').replace(/~/g, '/node_modules/');
-            return info.resourcePath.replace('client/scripts', '').replace(/~/g, '/node_modules/');
+            return info.resourcePath.replace(clientFolder + '/' + 'scripts', '').replace(/~/g, '/node_modules/');
         },
         devtoolFallbackModuleFilenameTemplate: '[absolute-resource-path]?[hash]'
     },
@@ -76,7 +83,7 @@ module.exports = {
             filename: 'common.js'
         }),
         new CopyWebpackPlugin([{
-            from: 'client/index.html'
+            from: clientFolder + '/index' + suffix + '.html'
         }], {
             ignore: ['*.ts']
         })
