@@ -16,7 +16,7 @@ module.exports = {
             'angular2/router',
             'angular2/http'
         ],
-        'app': './app/boot'
+        'bundle': './client/scripts/app/bootstrap.ts'
     },
 
     output: {
@@ -26,9 +26,9 @@ module.exports = {
         sourceMapFilename: '[name].js.map',
         chunkFilename: '[id].chunk.js',
         devtoolModuleFilenameTemplate: function(info) {
-            return 'app/' + info.resourcePath.replace(__dirname, '../..').replace(/~/g, '/node_modules/');
+            //return 'scripts/app' + info.resourcePath.replace(__dirname, '../..').replace(/~/g, '/node_modules/');
+            return info.resourcePath.replace('client/scripts', '').replace(/~/g, '/node_modules/');
         },
-        //devtoolModuleFilenameTemplate: 'scripts/[resource-path]',
         devtoolFallbackModuleFilenameTemplate: '[absolute-resource-path]?[hash]'
     },
 
@@ -76,7 +76,7 @@ module.exports = {
             filename: 'common.js'
         }),
         new CopyWebpackPlugin([{
-            from: 'app/index.html'
+            from: 'client/index.html'
         }], {
             ignore: ['*.ts']
         })

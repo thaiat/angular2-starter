@@ -2,7 +2,7 @@ import {Component} from 'angular2/core';
 
 interface Hero {
 	id: number;
-	name: string
+	name: string;
 }
 
 let HEROES: Hero[] = [
@@ -19,7 +19,7 @@ let HEROES: Hero[] = [
 ];
 
 @Component({
-	selector: 'my-app',
+	selector: 'app',
 	styles: [require('./app.component.css')],
 	template: require('./app.component.html')
 })

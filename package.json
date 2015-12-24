@@ -1,13 +1,13 @@
 {
   "name": "angular2-test",
   "version": "1.0.0",
-  "description": "",
+  "description": "Starter kit project with angular2 and webpack",
   "main": "index.js",
   "scripts": {
     "build": "webpack --progress --profile --colors --display-error-details --display-cached",
     "watch": "webpack --watch --progress --profile --colors --display-error-details --display-cached",
-    "lint": "tslint -c tslint.json \"app/**/*.ts\" || true",
-    "lite": "lite-server --baseDir  dist --port=5000",
+    "lint": "tslint -c tslint.json \"client/**/*.ts\" || true",
+    "lite": "lite-server --baseDir=dist --port=5000",
     "start": " npm run watch & npm run lite"
   },
   "dependencies": {
