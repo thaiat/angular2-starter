@@ -6,22 +6,19 @@
   "scripts": {
     "build": "webpack --progress --profile --colors --display-error-details --display-cached",
     "watch": "webpack --watch --progress --profile --colors --display-error-details --display-cached",
-    "lint": "tsconfig-lint",
+    "lint": "tslint -c tslint.json \"app/**/*.ts\" || true",
     "lite": "lite-server --baseDir  dist --port=5000",
-    "start": "concurrent \"npm run watch\" \"npm run lite\" "
+    "start": " npm run watch  & npm run lite"
   },
   "dependencies": {
     "angular2": "2.0.0-beta.0",
     "bootstrap": "^3.3.6",
     "es6-shim": "^0.33.3",
-    "gulp": "^3.9.0",
     "reflect-metadata": "0.1.2",
     "rxjs": "5.0.0-beta.0",
-    "tsconfig-lint": "^0.4.3",
     "zone.js": "^0.5.10"
   },
   "devDependencies": {
-    "concurrently": "^1.0.0",
     "copy-webpack-plugin": "^0.3.3",
     "es6-shim": "^0.34.0",
     "json-loader": "^0.5.4",

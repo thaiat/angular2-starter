@@ -15,7 +15,7 @@
     "node_modules"
   ],
   "files": [
-    "app/boot.ts"
+    "app/app.component.ts"
   ],
   "filesGlob": [
     "app/**/*.ts"
