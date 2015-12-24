@@ -6,4 +6,8 @@ Starter project with angular2 and webpack
 You can pass a different target using the following command:
 ```sh
 TARGET=newtarget npm start
-``
+```
+
+
+## TODOS
+* https://www.npmjs.com/package/html-webpack-plugin    

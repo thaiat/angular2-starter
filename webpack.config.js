@@ -7,9 +7,27 @@ var CommonsChunkPlugin = webpack.optimize.CommonsChunkPlugin;
 var CopyWebpackPlugin = require('copy-webpack-plugin');
 
 var target = process.env.TARGET || 'app';
+var port = process.env.PORT || 5000;
+var host = process.env.HOST || 'localhost';
+var mode = process.env.MODE || 'dev';
 var clientFolder = 'client';
 var distFolder = 'dist';
 var suffix = gulpMux.targets.targetToSuffix(target);
+
+
+var pluginsProd = mode === 'prod' ? [
+    new webpack.optimize.DedupePlugin(),
+    new webpack.optimize.OccurrenceOrderPlugin(true),
+    new webpack.optimize.UglifyJsPlugin({
+        mangle: true,
+        output: {
+            comments: false
+        },
+        compress: {
+            warnings: false
+        }
+    })
+] : [];
 
 module.exports = {
     devtool: 'source-map',
@@ -67,11 +85,48 @@ module.exports = {
             {
                 test: /\.html$/,
                 loader: 'raw-loader'
+            }, {
+                test: /\.png$/,
+                loader: 'url-loader?prefix=img/&limit=5000'
+            }, {
+                test: /\.jpg$/,
+                loader: 'url-loader?prefix=img/&limit=5000'
+            }, {
+                test: /\.gif$/,
+                loader: 'url-loader?prefix=img/&limit=5000'
+            }, {
+                test: /\.woff$/,
+                loader: 'url-loader?prefix=font/&limit=5000'
+            }, {
+                test: /\.eot$/,
+                loader: 'file-loader?prefix=font/'
+            }, {
+                test: /\.ttf$/,
+                loader: 'file-loader?prefix=font/'
+            }, {
+                test: /\.svg$/,
+                loader: 'file-loader?prefix=font/'
             }
         ],
         noParse: [/.+zone\.js\/dist\/.+/, /.+angular2\/bundles\/.+/]
     },
+    tslint: {
+        emitErrors: true,
+        failOnHint: true
+    },
+    devServer: {
+        historyApiFallback: true,
+        hot: true,
+        inline: true,
+        progress: true,
 
+        // Display only errors to reduce the amount of output.
+        stats: 'errors-only',
+
+        // Parse host and port from env so this is easy to customize.
+        host: host,
+        port: port
+    },
     plugins: [
         new CommonsChunkPlugin({
             name: 'angular2',
@@ -87,5 +142,5 @@ module.exports = {
         }], {
             ignore: ['*.ts']
         })
-    ]
+    ].concat(pluginsProd)
 }

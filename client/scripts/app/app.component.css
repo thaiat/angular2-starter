@@ -14,7 +14,7 @@ heroes {
 
 .heroes li:hover {
     color: #369;
-    background-color: #EEE;
+    background-color: green;
     left: 2em;
 }
 
