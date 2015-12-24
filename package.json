@@ -8,7 +8,7 @@
     "watch": "webpack --watch --progress --profile --colors --display-error-details --display-cached",
     "lint": "tslint -c tslint.json \"app/**/*.ts\" || true",
     "lite": "lite-server --baseDir  dist --port=5000",
-    "start": " npm run watch  & npm run lite"
+    "start": " npm run watch & npm run lite"
   },
   "dependencies": {
     "angular2": "2.0.0-beta.0",
