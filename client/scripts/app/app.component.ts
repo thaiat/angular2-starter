@@ -1,34 +1,31 @@
-import {Component} from 'angular2/core';
-
-interface Hero {
-	id: number;
-	name: string;
-}
-
-let HEROES: Hero[] = [
-	{ id: 11, name: 'Mr. Nice' },
-	{ id: 12, name: 'Narco' },
-	{ id: 13, name: 'Bombasto' },
-	{ id: 14, name: 'Celeritas' },
-	{ id: 15, name: 'Magneta' },
-	{ id: 16, name: 'RubberMan' },
-	{ id: 17, name: 'Dynama' },
-	{ id: 18, name: 'Dr IQ' },
-	{ id: 19, name: 'Magma' },
-	{ id: 20, name: 'Tornado' }
-];
+import {Component, OnInit} from 'angular2/core';
+import {IHero} from '../common/interfaces/ihero';
+import {HeroService} from '../common/services/hero.service';
 
 @Component({
 	selector: 'app',
 	styles: [require('./app.component.css')],
+	providers: [HeroService],
 	template: require('./app.component.html')
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
 	public title = 'Tour Of Heroes';
-	public heroes = HEROES;
-	public selectedHero: Hero;
+	public heroes;
+	public selectedHero: IHero;
 
-	onSelect(hero: Hero) {
+	constructor(private heroService: HeroService) {
+
+	}
+
+	ngOnInit() {
+		this.getHeroes();
+	}
+
+	getHeroes() {
+		this.heroes = this.heroService.getHeroes();
+	}
+
+	onSelect(hero: IHero) {
 		this.selectedHero = hero;
 	}
 }
