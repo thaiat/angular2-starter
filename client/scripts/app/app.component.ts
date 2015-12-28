@@ -12,6 +12,7 @@ export class AppComponent implements OnInit {
 	public title = 'Tour Of Heroes';
 	public heroes;
 	public selectedHero: IHero;
+	url: string = 'https://twitter.com/AngularClass';
 
 	constructor(private heroService: HeroService) {
 

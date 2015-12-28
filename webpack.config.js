@@ -12,6 +12,7 @@ var host = process.env.HOST || 'localhost';
 var mode = process.env.MODE || 'dev';
 var clientFolder = 'client';
 var distFolder = 'dist';
+var distFolder = 'dist' + '/' + target + '/' + mode;
 var suffix = gulpMux.targets.targetToSuffix(target);
 
 
@@ -33,15 +34,8 @@ module.exports = {
     devtool: 'source-map',
     debug: true,
     entry: {
-        'angular2': [
-            'rxjs',
-            'reflect-metadata',
-            'angular2/bundles/angular2-polyfills',
-            'angular2/core',
-            'angular2/router',
-            'angular2/http'
-        ],
-        'bundle': './' + clientFolder + '/scripts/' + target + '/bootstrap.ts'
+        'vendor':  './' + clientFolder + '/scripts/' + target + '/vendor',
+        'bundle': './' + clientFolder + '/scripts/' + target + '/bootstrap'
     },
 
     output: {
@@ -129,13 +123,15 @@ module.exports = {
     },
     plugins: [
         new CommonsChunkPlugin({
-            name: 'angular2',
-            filename: 'angular2.js',
+            name: 'vendor',
+            filename: 'vendor.js',
             minChunks: Infinity
         }),
         new CommonsChunkPlugin({
             name: 'common',
-            filename: 'common.js'
+            filename: 'common.js',
+            minChunks: 2,
+            chunks: ['bundle', 'vendor']
         }),
         new CopyWebpackPlugin([{
             from: clientFolder + '/index' + suffix + '.html'
