@@ -20,3 +20,6 @@ npm test
 
 ## TODOS
 * https://www.npmjs.com/package/html-webpack-plugin    
+* Protractor    
+
+
