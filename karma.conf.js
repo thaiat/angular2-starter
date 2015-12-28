@@ -26,7 +26,7 @@ module.exports = function(config) {
         // preprocess matching files before serving them to the browser
         // available preprocessors: https://npmjs.org/browse/keyword/karma-preprocessor
         preprocessors: {
-            'spec-bundle.js': ['webpack', 'sourcemap', 'coverage']
+            'spec-bundle.js': ['webpack', 'sourcemap']
                 // 'test/**/*.spec.ts': ['webpack', 'sourcemap']
         },
 
@@ -35,17 +35,21 @@ module.exports = function(config) {
             resolve: {
                 cache: false,
                 root: __dirname,
-                extensions: ['', '.ts', '.js', '.json', '.css', '.html'],
-                // alias: {
-                //     'app': 'src/app',
-                //     'common': 'src/common'
-                // }
+                extensions: ['', '.ts', '.js', '.json', '.css', '.html']
             },
             devtool: 'inline-source-map',
             module: {
                 loaders: [{
                     test: /\.ts$/,
                     loader: 'ts-loader',
+                    query: {
+                        'ignoreDiagnostics': [
+                            2403, // 2403 -> Subsequent variable declarations
+                            2300, // 2300 Duplicate identifier
+                            2374, // 2374 -> Duplicate number index signature
+                            2375 // 2375 -> Duplicate string index signature
+                        ]
+                    },
                     exclude: [/\.e2e\.ts$/, /node_modules/]
                 }, {
                     test: /\.json$/,
@@ -61,9 +65,9 @@ module.exports = function(config) {
                     // instrument only testing sources with Istanbul
                     {
                         test: /\.(js|ts)$/,
-                        include: path.resolve('client/scripts/'),
+                        include: path.resolve('client'),
                         loader: 'istanbul-instrumenter-loader',
-                        exclude: [/\.e2e\.ts$/, /node_modules/, /\.spec.ts$/]
+                        exclude: [/\.e2e\.ts$/, /node_modules/, /\.spec\.ts$/]
                     }
                 ]
             },
@@ -95,10 +99,6 @@ module.exports = function(config) {
         },
         webpackServer: {
             noInfo: true //please don't spam the console when running in karma!
-        },
-
-        mochaReporter: {
-            output: 'full'
         },
 
         // test results reporter to use

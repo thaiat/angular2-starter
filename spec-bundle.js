@@ -7,7 +7,7 @@
  * file for webpack test. Just like webpack will create a bundle.js
  * file for our client, when we run test, it well compile and bundle them
  * all here! Crazy huh. So we need to do some setup
-*/
+ */
 Error.stackTraceLimit = Infinity;
 require('phantomjs-polyfill');
 require('es6-promise');
@@ -31,14 +31,13 @@ require('angular2/testing');
   we say do this recursively
 */
 var testContext = require.context('./test', true, /\.spec\.ts/);
-var appContext = require.context('./client/scripts', true, /\.spec\.ts/);
+var appContext = require.context('./client', true, /^((?!vendor)(?!bootstrap).)*\.ts/);
 
 // get all the files, for each file, call the context function
 // that will require the file and load it up here. Context will
 // loop and require those spec files here
 appContext.keys().forEach(appContext);
 testContext.keys().forEach(testContext);
-
 // Select BrowserDomAdapter.
 // see https://github.com/AngularClass/angular2-webpack-starter/issues/124
 var domAdapter = require('angular2/src/platform/browser/browser_adapter');
@@ -49,34 +48,58 @@ domAdapter.BrowserDomAdapter.makeCurrent();
 
 // these are helpers that typescript uses
 // I manually added them by opting out of EmitHelpers by noEmitHelpers: false
-function globalPolyfills(){
-  global.__extends = (this && this.__extends) || function (d, b) {
-    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
-    var __ = function() { this.constructor = d; };
-    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-  };
-
-  global.__decorate = global.Reflect.decorate;
-  global.__metadata = global.Reflect.metadata;
-
-  global.__param = (this && this.__param) || function (paramIndex, decorator) {
-    return function (target, key) { decorator(target, key, paramIndex); };
-  };
-
-  global.__awaiter = (this && this.__awaiter) ||
-    function (thisArg, _arguments, Promise, generator) {
-      return new Promise(function (resolve, reject) {
-        generator = generator.call(thisArg, _arguments);
-        function cast(value) {
-          return value instanceof Promise && value.constructor === Promise ?
-          value : new Promise(function (resolve) { resolve(value); }); }
-        function onfulfill(value) { try { step('next', value); } catch (e) { reject(e); } }
-        function onreject(value) { try { step('throw', value); } catch (e) { reject(e); } }
-        function step(verb, value) {
-          var result = generator[verb](value);
-          result.done ? resolve(result.value) : cast(result.value).then(onfulfill, onreject);
-        }
-        step('next', void 0);
-      });
+function globalPolyfills() {
+    global.__extends = (this && this.__extends) || function(d, b) {
+        for (var p in b)
+            if (b.hasOwnProperty(p)) d[p] = b[p];
+        var __ = function() {
+            this.constructor = d;
+        };
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
     };
+
+    global.__decorate = global.Reflect.decorate;
+    global.__metadata = global.Reflect.metadata;
+
+    global.__param = (this && this.__param) || function(paramIndex, decorator) {
+        return function(target, key) {
+            decorator(target, key, paramIndex);
+        };
+    };
+
+    global.__awaiter = (this && this.__awaiter) ||
+        function(thisArg, _arguments, Promise, generator) {
+            return new Promise(function(resolve, reject) {
+                generator = generator.call(thisArg, _arguments);
+
+                function cast(value) {
+                    return value instanceof Promise && value.constructor === Promise ?
+                        value : new Promise(function(resolve) {
+                            resolve(value);
+                        });
+                }
+
+                function onfulfill(value) {
+                    try {
+                        step('next', value);
+                    } catch (e) {
+                        reject(e);
+                    }
+                }
+
+                function onreject(value) {
+                    try {
+                        step('throw', value);
+                    } catch (e) {
+                        reject(e);
+                    }
+                }
+
+                function step(verb, value) {
+                    var result = generator[verb](value);
+                    result.done ? resolve(result.value) : cast(result.value).then(onfulfill, onreject);
+                }
+                step('next', void 0);
+            });
+        };
 }
