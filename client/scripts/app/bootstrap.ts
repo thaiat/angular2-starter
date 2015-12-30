@@ -9,4 +9,6 @@ import {AppComponent} from './app.component';
 //import {enableProdMode} from 'angular2/core';
 //enableProdMode();
 
-bootstrap(AppComponent, [HTTP_PROVIDERS, ROUTER_PROVIDERS, provide(LocationStrategy, { useClass: HashLocationStrategy })]);
+bootstrap(AppComponent, [HTTP_PROVIDERS, ROUTER_PROVIDERS, provide(LocationStrategy, {
+    useClass: HashLocationStrategy
+})]);
