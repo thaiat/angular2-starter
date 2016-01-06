@@ -110,7 +110,14 @@ module.exports = {
                 loader: 'file-loader?name=[ext].[ext]&prefix=font/'
             }
         ],
-        noParse: [/.+zone\.js\/dist\/.+/, /.+angular2\/bundles\/.+/]
+        //noParse: [/.+zone\.js\/dist\/.+/, /.+angular2\/bundles\/.+/]
+        noParse: [
+            /es6-shim/,
+            /reflect-metadata/,
+            /web-animations/,
+            /zone\.js(\/|\\)dist(\/|\\)zone-microtask/,
+            /.+angular2\/bundles\/.+/
+        ]
     },
     tslint: {
         emitErrors: false,
