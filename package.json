@@ -9,7 +9,7 @@
     "clean": "rm -rf dist coverage",
     "lint": "tslint -c tslint.json \"client/**/*.ts\" || true",
     "browsersync": "npm run watch & browser-sync start --server=dist/${TARGET-app}/${MODE-dev} --files=\"dist/${TARGET-app}/${MODE-dev}/*.*\" --port 5000",
-    "webpack-server": "webpack-dev-server --hot",
+    "webpack-server": "webpack-dev-server --hot --colors --progress",
     "test": "karma start"
   },
   "dependencies": {

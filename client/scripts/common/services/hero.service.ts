@@ -5,7 +5,7 @@ import {IHero} from '../interfaces/ihero';
 
 let heroes: IHero[] = [{
     id: 11,
-    name: 'Mr. Nice!'
+    name: 'Mr. Nice!!'
 }, {
     id: 12,
     name: 'Narco'

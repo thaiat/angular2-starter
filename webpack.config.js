@@ -33,9 +33,10 @@ module.exports = {
     devtool: 'source-map', //'eval-source-map',
     debug: true,
     cache: true,
+    context: path.resolve(path.join(clientFolder, 'scripts', target)), // the base directory for resolving the entry option
     entry: {
-        'vendor': './' + clientFolder + '/scripts/' + target + '/vendor',
-        'bundle': './' + clientFolder + '/scripts/' + target + '/bootstrap'
+        'vendor': './vendor',
+        'bundle': './bootstrap'
     },
 
     output: {
@@ -129,10 +130,8 @@ module.exports = {
         hot: true,
         inline: true,
         progress: true,
-
         // Display only errors to reduce the amount of output.
         stats: 'errors-only',
-
         // Parse host and port from env so this is easy to customize.
         host: host,
         port: port
