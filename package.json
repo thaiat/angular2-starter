@@ -8,8 +8,6 @@
     "watch": "webpack --watch --progress --profile --colors --display-error-details --display-cached",
     "clean": "rm -rf dist coverage",
     "lint": "tslint -c tslint.json \"client/**/*.ts\" || true",
-    "serve2": "webpack-dev-server --inline --progress --profile --colors --display-error-details --display-cached --port 3000",
-    "serve3": "webpack-dev-server --hot --inline --progress --colors --quiet --port=5000",
     "browsersync": "npm run watch & browser-sync start --server=dist/${TARGET-app}/${MODE-dev} --files=\"dist/${TARGET-app}/${MODE-dev}/*.*\" --port 5000",
     "webpack-server": "webpack-dev-server --hot",
     "test": "karma start"
