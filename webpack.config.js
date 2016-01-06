@@ -116,7 +116,7 @@ module.exports = {
             // support for .html as raw text
             {
                 test: /\.html$/,
-                loader: 'raw-loader'
+                loader: 'html-loader'
             }, {
                 test: /\.png$/,
                 loader: 'url-loader?name=images/[hash].[ext]&prefix=img/&limit=5000'
