@@ -5,16 +5,15 @@ var webpack = require('webpack');
 var gulpMux = require('gulp-mux');
 var CommonsChunkPlugin = webpack.optimize.CommonsChunkPlugin;
 var CopyWebpackPlugin = require('copy-webpack-plugin');
+var HtmlwebpackPlugin = require('html-webpack-plugin');
 
 var target = process.env.TARGET || 'app';
 var port = process.env.PORT || 5000;
 var host = process.env.HOST || 'localhost';
 var mode = process.env.MODE || 'dev';
 var clientFolder = 'client';
-var distFolder = 'dist';
 var distFolder = 'dist' + '/' + target + '/' + mode;
 var suffix = gulpMux.targets.targetToSuffix(target);
-
 
 var pluginsProd = mode === 'prod' ? [
     new webpack.optimize.DedupePlugin(),
@@ -34,13 +33,13 @@ module.exports = {
     devtool: 'source-map',
     debug: true,
     entry: {
-        'vendor':  './' + clientFolder + '/scripts/' + target + '/vendor',
+        'vendor': './' + clientFolder + '/scripts/' + target + '/vendor',
         'bundle': './' + clientFolder + '/scripts/' + target + '/bootstrap'
     },
 
     output: {
         path: __dirname + '/' + distFolder + '/',
-        publicPath: distFolder + '/',
+
         filename: '[name].js',
         sourceMapFilename: '[name].js.map',
         chunkFilename: '[id].chunk.js',
@@ -73,7 +72,8 @@ module.exports = {
             // Support for CSS as raw text
             {
                 test: /\.css$/,
-                loader: 'raw-loader'
+                loader: 'raw-loader',
+                include: [/client/]
             },
             // support for .html as raw text
             {
@@ -81,25 +81,28 @@ module.exports = {
                 loader: 'raw-loader'
             }, {
                 test: /\.png$/,
-                loader: 'url-loader?prefix=img/&limit=5000'
+                loader: 'url-loader?name=[ext].[ext]&prefix=img/&limit=5000'
             }, {
                 test: /\.jpg$/,
-                loader: 'url-loader?prefix=img/&limit=5000'
+                loader: 'url-loader?name=[ext].[ext]&prefix=img/&limit=5000'
             }, {
                 test: /\.gif$/,
-                loader: 'url-loader?prefix=img/&limit=5000'
+                loader: 'url-loader?name=[ext].[ext]&prefix=img/&limit=5000'
             }, {
                 test: /\.woff$/,
-                loader: 'url-loader?prefix=font/&limit=5000'
+                loader: 'url-loader?name=[ext].[ext]&prefix=font/&limit=5000'
+            }, {
+                test: /\.woff2$/,
+                loader: 'url-loader?name=[ext].[ext]&prefix=font/&limit=5000'
             }, {
                 test: /\.eot$/,
-                loader: 'file-loader?prefix=font/'
+                loader: 'file-loader?name=[ext].[ext]&prefix=font/'
             }, {
                 test: /\.ttf$/,
-                loader: 'file-loader?prefix=font/'
+                loader: 'file-loader?name=[ext].[ext]&prefix=font/'
             }, {
                 test: /\.svg$/,
-                loader: 'file-loader?prefix=font/'
+                loader: 'file-loader?name=[ext].[ext]&prefix=font/'
             }
         ],
         noParse: [/.+zone\.js\/dist\/.+/, /.+angular2\/bundles\/.+/]
@@ -133,10 +136,10 @@ module.exports = {
             minChunks: 2,
             chunks: ['bundle', 'vendor']
         }),
-        new CopyWebpackPlugin([{
-            from: clientFolder + '/index' + suffix + '.html'
-        }], {
-            ignore: ['*.ts']
+        new HtmlwebpackPlugin({
+            title: 'App - ' + target,
+            template: clientFolder + '/index' + suffix + '.html',
+            inject: 'body'
         })
     ].concat(pluginsProd)
 }
