@@ -64,7 +64,7 @@ module.exports = {
         loaders: [{
                 test: /\.ts$/,
                 loader: 'ts',
-                exclude: [/\.(spec|e2e)\.ts$/, /node_modules\/(?!(ng2-.+))/]
+                exclude: [/\.(e2e)\.ts$/, /node_modules\/(?!(ng2-.+))/]
             },
             // Support for *.json files.
             {
@@ -145,10 +145,12 @@ module.exports = {
         ],
         //noParse: [/.+zone\.js\/dist\/.+/, /.+angular2\/bundles\/.+/]
         noParse: [
+            /zone\.js\/dist\/zone-microtask\.js/,
+            /zone\.js\/dist\/long-stack-trace-zone\.js/,
+            /zone\.js\/dist\/jasmine-patch\.js/,
             /es6-shim/,
             /reflect-metadata/,
             /web-animations/,
-            /zone\.js(\/|\\)dist(\/|\\)zone-microtask/,
             /.+angular2\/bundles\/.+/
         ]
     },
