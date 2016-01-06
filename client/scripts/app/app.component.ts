@@ -5,7 +5,7 @@ import {HeroService} from '../common/services/hero.service';
 /* beautify ignore:end */
 @Component({
     selector: 'app',
-    styles: [require('./app.component.css')],
+    styles: [require('./app.component.scss').toString()],
     providers: [HeroService],
     template: require('./app.component.html')
 })

@@ -35,8 +35,8 @@ module.exports = {
     cache: true,
     context: path.resolve(path.join(clientFolder, 'scripts', target)), // the base directory for resolving the entry option
     entry: {
-        'vendor': './vendor',
-        'bundle': './bootstrap'
+        'vendor': './vendor', // clientFolder + '/scripts/' + target  + '/vendor', // path.resolve(path.join('.', clientFolder, 'scripts', target, 'vendor')),
+        'bundle': './bootstrap', //clientFolder + '/scripts/' + target  + '/bootstrap',  // path.resolve(path.join('.', clientFolder, 'scripts', target, 'bootstrap'))
     },
 
     output: {
@@ -47,13 +47,13 @@ module.exports = {
         chunkFilename: '[id].chunk.js',
         devtoolModuleFilenameTemplate: function(info) {
             //return 'scripts/app' + info.resourcePath.replace(__dirname, '../..').replace(/~/g, '/node_modules/');
-            return info.resourcePath.replace(clientFolder + '/' + 'scripts', '').replace(/~/g, '/node_modules/');
+            //return info.resourcePath.replace(clientFolder + '/' + 'scripts', '').replace(/~/g, '/node_modules/');
         },
-        devtoolFallbackModuleFilenameTemplate: '[absolute-resource-path]?[hash]'
+        devtoolFallbackModuleFilenameTemplate: '[absolute-resource-path]'
     },
 
     resolve: {
-        extensions: ['', '.ts', '.js', '.json', '.css', '.html']
+        extensions: ['', '.ts', '.js', '.json', '.css', '.html', '.scss', '.sass']
     },
 
     module: {
@@ -71,15 +71,46 @@ module.exports = {
                 test: /\.json$/,
                 loader: 'json-loader'
             },
-            // Support for CSS as raw text
+            // Support for CSS as raw text in client folder
             {
                 test: /\.css$/,
-                loader: 'raw-loader',
+                loader: 'css-loader',
                 include: [new RegExp(clientFolder)]
-                    //include: [/client/]
-            }, {
+            },
+            // Support for CSS as injected style in node_module folder
+            {
                 test: /\.css$/,
                 loader: 'style-loader!css-loader',
+                include: [/node_modules/]
+            },
+            // Support for SCSS as raw text in client folder
+            {
+                test: /\.scss$/,
+                loader: 'css-loader!sass-loader?sourceMap',
+                cacheable: true,
+                include: [new RegExp(clientFolder)]
+            },
+            // Support for SCSS as inject style in node_module folder
+            {
+                test: /\.scss$/,
+                loader: 'style-loader!css-loader!sass-loader?sourceMap',
+                cacheable: true,
+                include: [/node_modules/]
+            },
+            // Support for SCSS as raw text in client folder
+            {
+                test: /\.sass$/,
+                // Passing indentedSyntax query param to node-sass
+                loader: 'css-loader!sass-loader?indentedSyntax&sourceMap',
+                cacheable: true,
+                include: [new RegExp(clientFolder)]
+            },
+            // Support for SCSS as inject style in node_module folder
+            {
+                test: /\.sass$/,
+                // Passing indentedSyntax query param to node-sass
+                loader: 'style-loader!css-loader!sass-loader?indentedSyntax&sourceMap',
+                cacheable: true,
                 include: [/node_modules/]
             },
             // support for .html as raw text
@@ -88,28 +119,28 @@ module.exports = {
                 loader: 'raw-loader'
             }, {
                 test: /\.png$/,
-                loader: 'url-loader?name=[ext].[ext]&prefix=img/&limit=5000'
+                loader: 'url-loader?name=images/[hash].[ext]&prefix=img/&limit=5000'
             }, {
                 test: /\.jpg$/,
-                loader: 'url-loader?name=[ext].[ext]&prefix=img/&limit=5000'
+                loader: 'url-loader?name=images/[hash].[ext]&prefix=img/&limit=5000'
             }, {
                 test: /\.gif$/,
-                loader: 'url-loader?name=[ext].[ext]&prefix=img/&limit=5000'
+                loader: 'url-loader?name=images/[hash].[ext]&prefix=img/&limit=5000'
             }, {
                 test: /\.woff$/,
-                loader: 'url-loader?name=[ext].[ext]&prefix=font/&limit=5000'
+                loader: 'url-loader?name=fonts/[hash].[ext]&prefix=font/&limit=5000'
             }, {
                 test: /\.woff2$/,
-                loader: 'url-loader?name=[ext].[ext]&prefix=font/&limit=5000'
+                loader: 'url-loader?name=fonts/[hash].[ext]&prefix=font/&limit=5000'
             }, {
                 test: /\.eot$/,
-                loader: 'file-loader?name=[ext].[ext]&prefix=font/'
+                loader: 'file-loader?name=fonts/[hash].[ext]&prefix=font/'
             }, {
                 test: /\.ttf$/,
-                loader: 'file-loader?name=[ext].[ext]&prefix=font/'
+                loader: 'file-loader?name=fonts/[hash].[ext]&prefix=font/'
             }, {
                 test: /\.svg$/,
-                loader: 'file-loader?name=[ext].[ext]&prefix=font/'
+                loader: 'file-loader?name=fonts/[hash].[ext]&prefix=font/'
             }
         ],
         //noParse: [/.+zone\.js\/dist\/.+/, /.+angular2\/bundles\/.+/]

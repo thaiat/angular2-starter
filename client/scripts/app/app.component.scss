@@ -1,3 +1,5 @@
+$primaryColor: red;
+
 heroes {
     list-style-type: none;
     margin-left: 1em;
@@ -14,7 +16,7 @@ heroes {
 
 .heroes li:hover {
     color: #369;
-    background-color: green;
+    background-color: $primaryColor;
     left: 2em;
 }
 
