@@ -73,7 +73,12 @@ module.exports = {
             {
                 test: /\.css$/,
                 loader: 'raw-loader',
-                include: [/client/]
+                include: [new RegExp(clientFolder)]
+                    //include: [/client/]
+            }, {
+                test: /\.css$/,
+                loader: 'style-loader!css-loader',
+                include: [/node_modules/]
             },
             // support for .html as raw text
             {
@@ -108,8 +113,8 @@ module.exports = {
         noParse: [/.+zone\.js\/dist\/.+/, /.+angular2\/bundles\/.+/]
     },
     tslint: {
-        emitErrors: true,
-        failOnHint: true
+        emitErrors: false,
+        failOnHint: false
     },
     devServer: {
         historyApiFallback: true,

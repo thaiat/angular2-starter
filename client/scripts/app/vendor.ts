@@ -13,6 +13,8 @@ import 'angular2/router';
 import 'angular2/http';
 
 // Other vendors for example jQuery or Lodash
+window['jQuery'] = require('jquery');
 
 // css
-require('style!css!bootstrap/dist/css/bootstrap.css');
+require('bootstrap/dist/css/bootstrap.css');
+require('bootstrap');
