@@ -16,9 +16,9 @@ var distFolder = 'dist' + '/' + target + '/' + mode;
 var suffix = gulpMux.targets.targetToSuffix(target);
 
 var pluginsProd = mode === 'prod' ? [
-    new webpack.optimize.DedupePlugin(),
-    new webpack.optimize.OccurrenceOrderPlugin(true),
+    //new webpack.optimize.DedupePlugin(),
     new webpack.optimize.UglifyJsPlugin({
+        minimize: true,
         mangle: true,
         output: {
             comments: false
@@ -30,8 +30,9 @@ var pluginsProd = mode === 'prod' ? [
 ] : [];
 
 module.exports = {
-    devtool: 'source-map',
+    devtool: 'source-map', //'eval-source-map',
     debug: true,
+    cache: true,
     entry: {
         'vendor': './' + clientFolder + '/scripts/' + target + '/vendor',
         'bundle': './' + clientFolder + '/scripts/' + target + '/bootstrap'

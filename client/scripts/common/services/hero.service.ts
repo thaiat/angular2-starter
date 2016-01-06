@@ -2,9 +2,10 @@
 import {Injectable} from 'angular2/core';
 import {IHero} from '../interfaces/ihero';
 /* beautify ignore:end */
+
 let heroes: IHero[] = [{
     id: 11,
-    name: 'Mr. Nice!!'
+    name: 'Mr. Nice!'
 }, {
     id: 12,
     name: 'Narco'
