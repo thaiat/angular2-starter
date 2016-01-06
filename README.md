@@ -36,4 +36,14 @@ npm test
 * https://www.npmjs.com/package/html-webpack-plugin - DONE    
 * Protractor    
 
+## NOTES
+When importing a style as a string use the `.toString()` method
+```ts
+@Component({
+    selector: 'app',
+    styles: [require('./app.component.scss').toString()],
+    providers: [HeroService],
+    template: require('./app.component.html')
+})
+```
 
