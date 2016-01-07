@@ -4,7 +4,7 @@ var path = require('path');
 var webpack = require('webpack');
 var gulpMux = require('gulp-mux');
 var CommonsChunkPlugin = webpack.optimize.CommonsChunkPlugin;
-var CopyWebpackPlugin = require('copy-webpack-plugin');
+//var CopyWebpackPlugin = require('copy-webpack-plugin');
 var HtmlwebpackPlugin = require('html-webpack-plugin');
 
 var target = process.env.TARGET || 'app';
@@ -12,7 +12,7 @@ var port = process.env.PORT || 5000;
 var host = process.env.HOST || 'localhost';
 var mode = process.env.MODE || 'dev';
 var clientFolder = 'client';
-var distFolder = 'dist' + '/' + target + '/' + mode;
+var distFolder = path.join('dist', target, mode);
 var suffix = gulpMux.targets.targetToSuffix(target);
 
 var pluginsProd = mode === 'prod' ? [
@@ -36,11 +36,11 @@ module.exports = {
     context: path.resolve(path.join(clientFolder, 'scripts', target)), // the base directory for resolving the entry option
     entry: {
         'vendor': './vendor', // clientFolder + '/scripts/' + target  + '/vendor', // path.resolve(path.join('.', clientFolder, 'scripts', target, 'vendor')),
-        'bundle': './bootstrap', //clientFolder + '/scripts/' + target  + '/bootstrap',  // path.resolve(path.join('.', clientFolder, 'scripts', target, 'bootstrap'))
+        'bundle': './bootstrap' //clientFolder + '/scripts/' + target  + '/bootstrap',  // path.resolve(path.join('.', clientFolder, 'scripts', target, 'bootstrap'))
     },
 
     output: {
-        path: __dirname + '/' + distFolder + '/',
+        path: path.resolve(distFolder),
 
         filename: '[name].js',
         sourceMapFilename: '[name].js.map',
@@ -187,4 +187,4 @@ module.exports = {
             inject: 'body'
         })
     ].concat(pluginsProd)
-}
+};

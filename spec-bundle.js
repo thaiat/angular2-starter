@@ -17,7 +17,7 @@ require('zone.js/lib/browser/zone-microtask.js');
 require('zone.js/lib/browser/long-stack-trace-zone.js');
 require('zone.js/lib/browser/jasmine-patch.js');
 // these are global EmitHelpers used by compiled typescript
-globalPolyfills()
+globalPolyfills();
 
 require('angular2/testing');
 

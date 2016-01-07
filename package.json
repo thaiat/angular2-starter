@@ -7,7 +7,9 @@
     "build": "webpack --progress --profile --colors --display-error-details --display-cached",
     "watch": "webpack --watch --progress --profile --colors --display-error-details --display-cached",
     "clean": "rm -rf dist coverage",
-    "lint": "tslint -c tslint.json \"client/**/*.ts\" || true",
+    "tslint": "tslint -c tslint.json \"client/**/*.ts\" || true",
+    "eslint": "eslint . || true",
+    "lint": "npm run tslint && npm run eslint",
     "browsersync": "npm run watch & browser-sync start --server=dist/${TARGET-app}/${MODE-dev} --files=\"dist/${TARGET-app}/${MODE-dev}/*.*\" --port 5000",
     "webpack-server": "webpack-dev-server --hot --colors --progress",
     "test": "karma start"
