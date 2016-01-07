@@ -61,10 +61,30 @@ module.exports = {
             test: /\.ts$/,
             loader: 'tslint-loader'
         }],
-        loaders: [{
-                test: /\.ts$/,
-                loader: 'ts',
-                exclude: [/\.(e2e)\.ts$/, /node_modules\/(?!(ng2-.+))/]
+        loaders: [
+            // {
+            //         test: /\.ts$/,
+            //         loader: 'ts',
+            //         exclude: [/\.(e2e)\.ts$/, /node_modules\/(?!(ng2-.+))/]
+            //     }, 
+            {
+                test: /\.js$/,
+                loader: 'babel',
+                query: {
+                    cacheDirectory: true,
+                    plugins: [
+                        "angular2-annotations",
+                        "transform-decorators-legacy",
+                        "transform-class-properties",
+                        "transform-flow-strip-types"
+                    ],
+                    presets: ['es2015']
+                },
+                exclude: [/\.(e2e)\.js$/, /node_modules\/(?!(ng2-.+))/, /test/]
+            }, {
+                test: /\.js$/,
+                loader: 'isparta',
+                exclude: [/test/, /\.(e2e)\.js$/, /spec-bundle\.js/, /node_modules\/(?!(ng2-.+))/, /\.e2e\.ts$/, /\.e2e\.js$/, /node_modules/, /\.spec\.ts$/, /\.spec\.js$/]
             },
             // Support for *.json files.
             {

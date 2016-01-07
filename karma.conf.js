@@ -39,15 +39,28 @@ module.exports = function(config) {
                 extensions: ['', '.ts', '.js', '.json', '.css', '.html', '.scss', '.sass']
             },
             devtool: 'inline-source-map',
+            isparta: {
+                embedSource: true,
+                noAutoWrap: true,
+                babel: {
+                    plugins: [
+                        "angular2-annotations",
+                        "transform-decorators-legacy",
+                        "transform-class-properties",
+                        "transform-flow-strip-types"
+                    ],
+                    presets: ['es2015']
+                }
+            },
             module: {
                 loaders: webpackConfig.module.loaders,
-                postLoaders: [
+                spreLoaders: [
                     // instrument only testing sources with Istanbul
                     {
                         test: /\.(js|ts)$/,
                         include: path.resolve('client'),
-                        loader: 'istanbul-instrumenter-loader',
-                        exclude: [/\.e2e\.ts$/, /node_modules/, /\.spec\.ts$/]
+                        loader: 'iparta-loader',
+                        exclude: [/\.e2e\.ts$/, /\.e2e\.js$/, /node_modules/, /\.spec\.ts$/, /\.spec\.js$/]
                     }
                 ]
             },

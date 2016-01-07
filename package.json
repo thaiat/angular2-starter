@@ -14,6 +14,7 @@
   },
   "dependencies": {
     "angular2": "2.0.0-beta.0",
+    "babel-polyfill": "^6.3.14",
     "bootstrap": "^3.3.6",
     "es6-shim": "^0.33.3",
     "jquery": "^2.1.4",
@@ -22,6 +23,14 @@
     "zone.js": "^0.5.10"
   },
   "devDependencies": {
+    "babel-core": "^6.3.21",
+    "babel-loader": "^6.2.0",
+    "babel-plugin-angular2-annotations": "^5.0.0",
+    "babel-plugin-transform-class-properties": "^6.3.13",
+    "babel-plugin-transform-decorators-legacy": "^1.3.4",
+    "babel-plugin-transform-flow-strip-types": "^6.3.15",
+    "babel-preset-es2015": "^6.3.13",
+    "babylon": "^6.3.25",
     "browser-sync": "^2.10.1",
     "copy-webpack-plugin": "^0.3.3",
     "css-loader": "^0.23.1",
@@ -31,6 +40,7 @@
     "gulp-mux": "^0.2.24",
     "html-loader": "^0.4.0",
     "html-webpack-plugin": "^1.7.0",
+    "isparta-loader": "^2.0.0",
     "istanbul-instrumenter-loader": "^0.1.3",
     "json-loader": "^0.5.4",
     "karma": "^0.13.11",

@@ -10,13 +10,13 @@ import {HeroService} from '../common/services/hero.service';
     template: require('./app.component.html')
 })
 export class AppComponent implements OnInit {
-    public title = 'Tour Of Heroes';
-    public heroes;
-    public selectedHero: IHero;
+    title = 'Tour Of Heroes';
+    heroes;
+    selectedHero: IHero;
     url: string = 'https://twitter.com/AngularClass';
 
-    constructor(private heroService: HeroService) {
-
+    constructor(heroService: HeroService) {
+        this.heroService = heroService;
     }
 
     ngOnInit() {
