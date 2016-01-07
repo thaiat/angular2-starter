@@ -44,25 +44,21 @@ module.exports = function(config) {
                 noAutoWrap: true,
                 babel: {
                     plugins: [
-                        "angular2-annotations",
-                        "transform-decorators-legacy",
-                        "transform-class-properties",
-                        "transform-flow-strip-types"
+                        'angular2-annotations',
+                        'transform-decorators-legacy',
+                        'transform-class-properties',
+                        'transform-flow-strip-types'
                     ],
                     presets: ['es2015']
                 }
             },
             module: {
                 loaders: webpackConfig.module.loaders,
-                spreLoaders: [
-                    // instrument only testing sources with Istanbul
-                    {
-                        test: /\.(js|ts)$/,
-                        include: path.resolve('client'),
-                        loader: 'iparta-loader',
-                        exclude: [/\.e2e\.ts$/, /\.e2e\.js$/, /node_modules/, /\.spec\.ts$/, /\.spec\.js$/]
-                    }
-                ]
+                postLoaders: [{
+                    test: /\.ts$|\.js$/,
+                    loader: 'isparta',
+                    exclude: [/test/, /spec-bundle\.js/, /node_modules\/(?!(ng2-.+))/, /\.e2e\.ts$/, /\.e2e\.js$/, /node_modules/, /\.spec\.ts$/, /\.spec\.js$/]
+                }]
             },
             stats: {
                 colors: true,

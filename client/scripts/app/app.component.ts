@@ -15,8 +15,8 @@ export class AppComponent implements OnInit {
     selectedHero: IHero;
     url: string = 'https://twitter.com/AngularClass';
 
-    constructor(heroService: HeroService) {
-        this.heroService = heroService;
+    constructor(private heroService: HeroService) {
+
     }
 
     ngOnInit() {

@@ -30,8 +30,8 @@ require('angular2/testing');
   any file that ends with spec.js and get its path. By passing in true
   we say do this recursively
 */
-var testContext = require.context('./test', true, /\.spec\.js/);
-var appContext = require.context('./client', true, /^((?!vendor)(?!bootstrap).)*\.js/);
+var testContext = require.context('./test', true, /\.spec\.ts/);
+var appContext = require.context('./client', true, /^((?!vendor)(?!bootstrap).)*\.ts/);
 
 // get all the files, for each file, call the context function
 // that will require the file and load it up here. Context will
