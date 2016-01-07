@@ -1,5 +1,4 @@
 'use strict';
-var argv = require('yargs').argv;
 var path = require('path');
 var webpack = require('webpack');
 var gulpMux = require('gulp-mux');
