@@ -12,7 +12,8 @@
     "lint": "npm run tslint && npm run eslint",
     "browsersync": "npm run watch & browser-sync start --server=dist/${TARGET-app}/${MODE-dev} --files=\"dist/${TARGET-app}/${MODE-dev}/*.*\" --port 5000",
     "webpack-server": "webpack-dev-server --hot --colors --progress",
-    "test": "karma start"
+    "unit": "karma start",
+    "test": "npm run lint && npm run unit"
   },
   "dependencies": {
     "angular2": "2.0.0-beta.0",
