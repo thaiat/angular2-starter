@@ -1,3 +1,4 @@
+[![Build Status](https://travis-ci.org/thaiat/angular2-starter.svg?branch=master)](https://travis-ci.org/thaiat/angular2-starter)
 ## Description
 Starter project with angular2 and webpack
 
