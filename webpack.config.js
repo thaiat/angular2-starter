@@ -169,6 +169,10 @@ module.exports = {
         port: port
     },
     plugins: [
+        new webpack.BannerPlugin('if (typeof window === "undefined") {window = global;}', {
+            raw: true,
+            entryOnly: true
+        }),
         new CommonsChunkPlugin({
             name: 'vendor',
             filename: 'vendor.js',

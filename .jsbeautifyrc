@@ -1,6 +1,6 @@
 {
    "html": {
-    "allowed_file_extensions": ["htm", "html", "xhtml", "shtml", "xml", "svg"],
+    "allowed_file_extensions": ["htm", "html", "xhtml", "shtml", "xml", "svg", "ux"],
     "brace_style": "collapse",
     "indent_char": " ",
     "indent_handlebars": false,
@@ -9,7 +9,7 @@
     "indent_size": 4,
     "max_preserve_newlines": 1,
     "preserve_newlines": true,
-    "unformatted": ["a", "sub", "sup", "b", "i", "u", "pre"],
+    "unformatted": ["a", "sub", "sup", "b", "i", "u", "pre", "javascript"],
     "wrap_line_length": 0
   },
   "css": {
