@@ -48,3 +48,5 @@ When importing a style as a string use the `.toString()` method
 })
 ```
 
+Can't upgrade to latest of `babel-eslint` because of this: https://github.com/babel/babel-eslint/issues/228
+
