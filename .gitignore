@@ -19,6 +19,7 @@ reports/
 build/
 dist/
 .tmp
+.cache/
 
 # Vendor files
 node_modules
@@ -52,6 +53,9 @@ plugins/
 
 # Visual Studio Code
 .vscode/
+
+# Fuse
+.build/
 
 # Changelog
 CHANGELOG.md
