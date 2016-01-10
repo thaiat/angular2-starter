@@ -1,10 +1,10 @@
 /* beautify ignore:start */
 import {
-it,
-inject,
-injectAsync,
-beforeEachProviders,
-TestComponentBuilder
+it
+//inject,
+//injectAsync,
+//beforeEachProviders,
+//TestComponentBuilder
 } from 'angular2/testing';
 /* beautify ignore:end */
 
