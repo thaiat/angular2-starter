@@ -169,10 +169,13 @@ module.exports = {
         port: port
     },
     plugins: [
-        new webpack.BannerPlugin('if (typeof window === "undefined") {window = global;}', {
-            raw: true,
-            entryOnly: true
-        }),
+        // make sure we can import the chunks on node or fuse
+        new webpack.BannerPlugin(
+            'if (typeof window === "undefined") {window = global;}\n' +
+            'if (typeof window["webpackJsonp"]) {webpackJsonp = window.webpackJsonp;}\n', {
+                raw: true,
+                entryOnly: true
+            }),
         new CommonsChunkPlugin({
             name: 'vendor',
             filename: 'vendor.js',
