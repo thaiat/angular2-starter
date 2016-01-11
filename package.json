@@ -13,7 +13,10 @@
     "browsersync": "npm run watch & browser-sync start --server=dist/${TARGET-app}/${MODE-dev} --files=\"dist/${TARGET-app}/${MODE-dev}/*.*\" --port 5000",
     "webpack-server": "webpack-dev-server --hot --colors --progress",
     "unit": "karma start",
-    "test": "npm run lint && npm run unit"
+    "test": "npm run lint && npm run unit",
+    "fuse.preview": "fuse preview",
+    "fuse.ios": "fuse build --target=iOS --run",
+    "fuse.android": "fuse build --target=Android --run"
   },
   "dependencies": {
     "angular2": "2.0.0-beta.0",
