@@ -9,7 +9,7 @@
     "indent_size": 4,
     "max_preserve_newlines": 1,
     "preserve_newlines": true,
-    "unformatted": ["a", "sub", "sup", "b", "i", "u", "pre", "javascript"],
+    "unformatted": ["a", "sub", "sup", "b", "i", "u", "pre", "javascript", "style"],
     "wrap_line_length": 0
   },
   "css": {
